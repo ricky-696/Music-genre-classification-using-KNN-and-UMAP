@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn import metrics
 from sklearn import preprocessing
-from sklearn.cluster import KMeans
+import joblib
 from sklearn.decomposition import PCA
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score, roc_auc_score, roc_curve,silhouette_score
@@ -19,7 +19,7 @@ print(data_y)
 data_x = data.loc[:, data.columns != 'label'] # name locate
 print(data_x)
 
-
+'''
 #### NORMALIZE data_x ####
 cols = data_x.columns
 min_max_scaler = preprocessing.MinMaxScaler()
@@ -35,6 +35,9 @@ def model_assess(model, title = "Default"):
     model.fit(X_train, y_train) # fit model
     preds = model.predict(X_test)
     print('Accuracy', title, ':', round(accuracy_score(y_test, preds), 5), '\n')
+
+    joblib.dump(model, 'knn_music.joblib') #save model
+
     # Confusion Matrix
     confusion_matr = confusion_matrix(y_test, preds) #normalize = 'true'
     plt.figure(figsize = (16, 9))
@@ -47,4 +50,4 @@ def model_assess(model, title = "Default"):
 # KNN
 knn = KNeighborsClassifier(n_neighbors=10)
 model_assess(knn, "KNN")
-
+'''
